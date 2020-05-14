@@ -1,0 +1,41 @@
+.navbar-container {
+   text-align: left;
+   padding: 3%;
+   width: 20%;
+   height: 100%;
+   background-color: lightblue;
+   .navbar {
+      display: grid;
+      grid-template-rows: repeat(6, auto);
+      grid-gap: 15%;
+      .navbar-item {
+         font-size: x-large;
+      }
+      .logo-container {
+         text-align: center;
+         .logo {
+            position: relative;
+            width: 30%;
+            height: 100%;
+         }
+      }
+   }
+}
+
+@media screen and (max-width: 650px) {
+   .navbar-container {
+      .navbar {
+         .navbar-item {
+            font-size: medium;
+         }
+      }
+   }
+}
+
+@media screen and (max-height: 440px) {
+   .navbar-container {
+      .navbar {
+         grid-gap: 5%;
+      }
+   }
+}

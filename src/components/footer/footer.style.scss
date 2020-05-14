@@ -1,0 +1,15 @@
+.wrapper {
+   padding-top: 10px;
+   padding-bottom: 10px;
+   background-color: lightgoldenrodyellow;
+   height: auto;
+   width: 100%;
+   position: relative;
+}
+
+@media screen and (max-height: 440px) {
+   .wrapper {
+      padding: 5px;
+      font-size: 0.7em;
+   }
+}
