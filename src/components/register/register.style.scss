@@ -1,0 +1,18 @@
+.register {
+	display: flex;
+	flex-direction: column;
+   width: 50%;
+   margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+	.register {
+	width: 70%;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.register {
+	width: 90%;
+	}
+}

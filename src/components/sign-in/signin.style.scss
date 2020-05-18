@@ -1,0 +1,16 @@
+.signin {
+   width: 50%;
+   margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+   .signin {
+      width: 70%;
+   }
+}
+
+@media only screen and (max-width: 400px) {
+   .signin {
+      width: 90%;
+   }
+}

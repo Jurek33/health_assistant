@@ -7,6 +7,8 @@ import { ReactComponent as ReserveIcon } from '../../assets/reserve.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/settings.svg';
 import { ReactComponent as LogoutIcon } from '../../assets/logout.svg';
 import { Link } from 'react-router-dom';
+import { auth } from '../../firebase/firebase.utils';
+
 import './header.style.scss';
 
 const Header = () => {
@@ -20,7 +22,7 @@ const Header = () => {
             <Link to='/reserve'><span className="navbar-item"><ReserveIcon className="icon"/> Reserve a visit</span></Link> 
             <span className="navbar-item"><AccountIcon className="icon"/> My account</span>
             <span className="navbar-item"><SettingsIcon className="icon"/> Settings</span>
-            <span className="navbar-item"><LogoutIcon className="icon"/> Log out</span>
+            <Link onClick={() => auth.signOut()} to='/'><span className="navbar-item"><LogoutIcon className="icon"/> Log out</span></Link> 
          </div>
       </div>
    )
