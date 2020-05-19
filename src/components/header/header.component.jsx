@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { ReactComponent as Logo } from '../../assets/icon.svg';
 import { ReactComponent as AccountIcon } from '../../assets/account.svg';
@@ -6,12 +7,15 @@ import { ReactComponent as HomeIcon } from '../../assets/home.svg';
 import { ReactComponent as ReserveIcon } from '../../assets/reserve.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/settings.svg';
 import { ReactComponent as LogoutIcon } from '../../assets/logout.svg';
+
+import { signOutStart } from '../../redux/user/user.actions';
+
 import { Link } from 'react-router-dom';
-import { auth } from '../../firebase/firebase.utils';
+
 
 import './header.style.scss';
 
-const Header = () => {
+const Header = ({ signOutStart }) => {
    return (
       <div className="navbar-container">
          <div className="navbar">
@@ -22,10 +26,14 @@ const Header = () => {
             <Link to='/reserve'><span className="navbar-item"><ReserveIcon className="icon"/> Reserve a visit</span></Link> 
             <span className="navbar-item"><AccountIcon className="icon"/> My account</span>
             <span className="navbar-item"><SettingsIcon className="icon"/> Settings</span>
-            <Link onClick={() => auth.signOut()} to='/'><span className="navbar-item"><LogoutIcon className="icon"/> Log out</span></Link> 
+            <Link onClick={signOutStart} to='/'><span className="navbar-item"><LogoutIcon className="icon"/> Log out</span></Link> 
          </div>
       </div>
    )
 };
 
-export default Header;
+const mapDispatchToProps = dispatch => ({
+	signOutStart: () => dispatch(signOutStart())
+})
+
+export default connect(null, mapDispatchToProps)(Header);

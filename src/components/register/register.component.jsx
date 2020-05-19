@@ -1,68 +1,47 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
+import { registerStart } from '../../redux/user/user.actions';
 
 import './register.style.scss';
 
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+const Register = ({registerStart}) => {
 
-class Register extends Component {
-	constructor() {
-		super();
-		this.state = {
-			displayName: '',
-			email: '',
-			password: '',
-			confirmPassword: ''
-		}
-	}
+	const [userCredentials, setUserCredentials] = useState({ 
+		displayName: '',
+		email: '',
+		password: '',
+		confirmPassword: ''
+	 });
 
-	handleSubmit = async event => {
+	 const {displayName, email, password, confirmPassword} = userCredentials;
+	 const handleSubmit = async event => {
 		event.preventDefault();
-  
-		const { displayName, email, password, confirmPassword } = this.state;
-  
-		if (password !== confirmPassword) {
-		  alert("passwords don't match");
-		  return;
-		}
-  
-		try {
-		  const { user } = await auth.createUserWithEmailAndPassword(
-			 email,
-			 password
-		  );
-  
-		  await createUserProfileDocument(user, { displayName });
-  
-		  this.setState({
-			 displayName: '',
-			 email: '',
-			 password: '',
-			 confirmPassword: ''
-		  });
-		} catch (error) {
-		  console.error(error);
-		}
-	 };
-  
-	handleChange = event => {
-		const { name, value } = event.target;
-  
-		this.setState({ [name]: value });
-	 };
-  
+		if(password.length<6) {
+			alert('Password must be at least 6 characters');
+			return;
+		} else if(password!==confirmPassword) {
+			alert('passwords do not match');
+			return;
+		};
 
-	render() {
-		const { displayName, email, password, confirmPassword } = this.state;
+		registerStart({ displayName, email, password });
+	};
+
+	const handleChange = event => {
+		const { name, value } = event.target;
+		setUserCredentials({...userCredentials, [name]: value})
+	};
 		return(
 			<div className="register">
-			<form className="register-form" onSubmit={this.handleSubmit}>
+			<form className="register-form" onSubmit={handleSubmit}>
 				<FormInput
 					type="text"
 					name="displayName"
 					value={displayName}
-					onChange={this.handleChange}
+					onChange={handleChange}
 					label="Display Name"
 					required
 				/>
@@ -70,7 +49,7 @@ class Register extends Component {
 					type="email"
 					name="email"
 					value={email}
-					onChange={this.handleChange}
+					onChange={handleChange}
 					label="Email"
 					required
 				/>
@@ -78,7 +57,7 @@ class Register extends Component {
 					type="password"
 					name="password"
 					value={password}
-					onChange={this.handleChange}
+					onChange={handleChange}
 					label="Password"
 					required
 				/>
@@ -86,7 +65,7 @@ class Register extends Component {
 					type="password"
 					name="confirmPassword"
 					value={confirmPassword}
-					onChange={this.handleChange}
+					onChange={handleChange}
 					label="Confirm Password"
 					required
 				/>
@@ -94,7 +73,55 @@ class Register extends Component {
 			</form>
 		</div>
 		)
-	}
 }
 
-export default Register;
+const mapDispatchToProps = dispatch => ({
+	registerStart: userCredentials => dispatch(registerStart(userCredentials))
+})
+
+export default connect(null, mapDispatchToProps)(Register);
+
+// constructor() {
+// 	super();
+// 	this.state = {
+// 		displayName: '',
+// 		email: '',
+// 		password: '',
+// 		confirmPassword: ''
+// 	}
+// }
+
+// handleSubmit = async event => {
+// 	event.preventDefault();
+
+// 	const { displayName, email, password, confirmPassword } = this.state;
+
+// 	if (password !== confirmPassword) {
+// 	  alert("passwords don't match");
+// 	  return;
+// 	}
+
+// 	try {
+// 	  const { user } = await auth.createUserWithEmailAndPassword(
+// 		 email,
+// 		 password
+// 	  );
+
+// 	  await createUserProfileDocument(user, { displayName });
+
+// 	  this.setState({
+// 		 displayName: '',
+// 		 email: '',
+// 		 password: '',
+// 		 confirmPassword: ''
+// 	  });
+// 	} catch (error) {
+// 	  console.error(error);
+// 	}
+//  };
+
+// handleChange = event => {
+// 	const { name, value } = event.target;
+
+// 	this.setState({ [name]: value });
+//  };
