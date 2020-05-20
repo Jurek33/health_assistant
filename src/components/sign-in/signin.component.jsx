@@ -4,22 +4,26 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
 // import { auth } from '../../firebase/firebase.utils';
 import { emailSignInStart } from '../../redux/user/user.actions';
+import { SignInError } from '../error-boundary/error-boundary.component';
+import { selectError } from '../../redux/user/user.selector';
+import { createStructuredSelector } from 'reselect';
 
 import './signin.style.scss';
 
-const SignIn = ({ emailSignInStart }) => {
+const SignIn = ({ emailSignInStart, error }) => {
    const [userCredentials, setCredentials] = useState({ email: '', password: '' });
    const { email, password } = userCredentials;
 
    const handleSubmit = async event => {
-		event.preventDefault();
-		emailSignInStart(email, password);
+      event.preventDefault();
+      emailSignInStart(email, password);
 	};
 
 	const handleChange = event => {
 		const { value, name } = event.target;
-		setCredentials({...userCredentials, [name]: value });
-	};
+      setCredentials({...userCredentials, [name]: value });
+      
+   };
 
     return(
       <div className="signin">
@@ -40,6 +44,9 @@ const SignIn = ({ emailSignInStart }) => {
             label="password"
             required
             />
+            <div className="error-message">
+               {error ?<SignInError message={'Authentication failed, wrong credentials'}/>: null}
+            </div>
             <Button type="submit">Log In</Button>
          </form>
       </div>
@@ -50,8 +57,12 @@ const mapDispatchToProps = dispatch => ({
 	emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
 })
 
+const mapStateToProps = createStructuredSelector({
+   error: selectError
+ });
 
-export default connect(null, mapDispatchToProps)(SignIn);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 
 // constructor() {
 //    super();
