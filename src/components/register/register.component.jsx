@@ -3,27 +3,36 @@ import { connect } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
+import Spinner from '../spinner/spinner.component';
+import { PasswordError } from '../error-boundary/error-boundary.component';
 import { registerStart } from '../../redux/user/user.actions';
+import { selectIsPending } from '../../redux/user/user.selector';
+import { createStructuredSelector } from 'reselect';
 
 import './register.style.scss';
 
-const Register = ({registerStart}) => {
+const Register = ({registerStart, isPending}) => {
 
 	const [userCredentials, setUserCredentials] = useState({ 
 		displayName: '',
 		email: '',
 		password: '',
-		confirmPassword: ''
+		confirmPassword: '',
+		tickets: ''
 	 });
+
+	 const [prevState, setState] = useState({
+		 isPasswFailed: false
+	 })
 
 	 const {displayName, email, password, confirmPassword} = userCredentials;
 	 const handleSubmit = async event => {
 		event.preventDefault();
 		if(password.length<6) {
-			alert('Password must be at least 6 characters');
+			setState({isPasswFailed: true})
 			return;
 		} else if(password!==confirmPassword) {
-			alert('passwords do not match');
+			setState({isPasswFailed: true})
 			return;
 		};
 
@@ -32,7 +41,7 @@ const Register = ({registerStart}) => {
 
 	const handleChange = event => {
 		const { name, value } = event.target;
-		setUserCredentials({...userCredentials, [name]: value})
+		setUserCredentials({...userCredentials, [name]: value});
 	};
 		return(
 			<div className="register">
@@ -69,6 +78,14 @@ const Register = ({registerStart}) => {
 					label="Confirm Password"
 					required
 				/>
+				<div className='pending-error-message'>
+					<div>
+						{ prevState.isPasswFailed ? <PasswordError /> : null }
+					</div>
+					<div>
+						{ isPending ? <div>Just a few moments <Spinner /> </div> : null }
+					</div>
+				</div>
 				<Button type="submit">Register</Button>
 			</form>
 		</div>
@@ -77,51 +94,11 @@ const Register = ({registerStart}) => {
 
 const mapDispatchToProps = dispatch => ({
 	registerStart: userCredentials => dispatch(registerStart(userCredentials))
-})
+});
 
-export default connect(null, mapDispatchToProps)(Register);
+const mapStateToProps = createStructuredSelector({
+   isPending: selectIsPending
+ });
 
-// constructor() {
-// 	super();
-// 	this.state = {
-// 		displayName: '',
-// 		email: '',
-// 		password: '',
-// 		confirmPassword: ''
-// 	}
-// }
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
 
-// handleSubmit = async event => {
-// 	event.preventDefault();
-
-// 	const { displayName, email, password, confirmPassword } = this.state;
-
-// 	if (password !== confirmPassword) {
-// 	  alert("passwords don't match");
-// 	  return;
-// 	}
-
-// 	try {
-// 	  const { user } = await auth.createUserWithEmailAndPassword(
-// 		 email,
-// 		 password
-// 	  );
-
-// 	  await createUserProfileDocument(user, { displayName });
-
-// 	  this.setState({
-// 		 displayName: '',
-// 		 email: '',
-// 		 password: '',
-// 		 confirmPassword: ''
-// 	  });
-// 	} catch (error) {
-// 	  console.error(error);
-// 	}
-//  };
-
-// handleChange = event => {
-// 	const { name, value } = event.target;
-
-// 	this.setState({ [name]: value });
-//  };

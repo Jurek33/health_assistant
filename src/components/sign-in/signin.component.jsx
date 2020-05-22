@@ -5,13 +5,17 @@ import Button from '../custom-button/custom.button.component';
 // import { auth } from '../../firebase/firebase.utils';
 import { emailSignInStart } from '../../redux/user/user.actions';
 import { SignInError } from '../error-boundary/error-boundary.component';
-import { selectError } from '../../redux/user/user.selector';
+import Spinner from '../spinner/spinner.component';
+import { selectError, selectIsPending } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 
 import './signin.style.scss';
 
-const SignIn = ({ emailSignInStart, error }) => {
-   const [userCredentials, setCredentials] = useState({ email: '', password: '' });
+const SignIn = ({ emailSignInStart, error, isPending }) => {
+   const [userCredentials, setCredentials] = useState({ 
+      email: '', 
+      password: '' 
+   });
    const { email, password } = userCredentials;
 
    const handleSubmit = async event => {
@@ -44,8 +48,12 @@ const SignIn = ({ emailSignInStart, error }) => {
             label="password"
             required
             />
-            <div className="error-message">
-               {error ?<SignInError message={'Authentication failed, wrong credentials'}/>: null}
+            <div className="pending-error-message">
+               {
+                  isPending ? <div>loading <Spinner /> </div>:
+                  error ?<SignInError />:
+                  null
+               }
             </div>
             <Button type="submit">Log In</Button>
          </form>
@@ -58,35 +66,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = createStructuredSelector({
-   error: selectError
+   error: selectError,
+   isPending: selectIsPending
  });
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 
-// constructor() {
-//    super();
-//    this.state = {
-//       email: '',
-//       password: ''
-//    }
-// }
-
-// handleSubmit = async event => {
-//  event.preventDefault();
-
-//  const { email, password } = this.state;
-
-//  try {
-//     await auth.signInWithEmailAndPassword(email,password);
-//     this.setState({ email: '', password: '' });
-//  } catch (err) {
-//     console.log(err)
-//  }
-// };
-
-// handleChange = event => {
-//  const { value, name } = event.target;
-
-//  this.setState({ [name]: value });
-// };

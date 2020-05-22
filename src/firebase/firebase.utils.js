@@ -22,12 +22,14 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
    if(!snapShot.exists) {
      const { displayName, email } = userAuth;
      const createdAd = new Date();
+     const tickets = [];
 
      try {
        await userRef.set({
          displayName,
          email,
          createdAd,
+         tickets,
          ...additionalData
        })
      } catch(err) {
@@ -37,6 +39,25 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
    return userRef;
  }
+
+//  export const createUserTicketDocument = async (userAuth, additionalData) => {
+//    if(!userAuth) return;
+
+//    const userTicketRef = firestore.doc(`users/${userAuth.uid}/tickets`);
+//    const snapShot = await userTicketRef.get();
+//    if(snapShot) {
+//     const { legalName } = userAuth;
+//      try {
+//      await userTicketRef.set({
+//         legalName,
+//         ...additionalData
+//      })
+//    } catch(err) {
+//      console.log('error creating ticket', err.message)
+//    }
+//   }
+//    return userTicketRef;
+//  }
 
  export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {

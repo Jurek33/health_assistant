@@ -1,12 +1,21 @@
 import React from 'react';
 import './error-boundary.style.scss';
 
-export const SignInError = ({message}) => {
+export const SignInError = () => {
    return(
-      <div className='container'>
-         <div className='message'>
-           {message} 
-         </div> 
+      <div className='signin-failure-message'>
+         Authentication failed. Incorrect email or password
+      </div> 
+   )
+}
+
+export const PasswordError = () => {
+   return (
+      <div className='password-failure-message'>
+         <ul>
+            <li>Password must be at least 6 characters</li>
+            <li>Password must be equal to confirm password</li>
+         </ul>
       </div>
    )
 }

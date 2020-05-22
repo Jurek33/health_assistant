@@ -11,3 +11,8 @@ export const selectError = createSelector(
    [selectUser],
    (user) =>user.error
 );
+
+export const selectIsPending = createSelector(
+   [selectUser],
+   (user) => user.isPending
+)

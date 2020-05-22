@@ -1,12 +1,13 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-// import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import './App.css';
 
 import { checkUserSession } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selector';
+
+import Spinner from './components/spinner/spinner.component';
 
 const MainPage = lazy(() => import('./pages/main_page/mainpage.component'));
 const ReservationPage = lazy(() => import('./pages/reservation_page/reservation.page.component'));
@@ -22,7 +23,8 @@ const App = ({ checkUserSession, currentUser }) => {
     return (
         <div className="App">
             <Switch>
-              <Suspense fallback={<h1>loading</h1>}>
+              <Suspense 
+              fallback={<div className='loading-message'>Loading <Spinner /> </div>}>
                 <Route 
                 exact path='/reserve' 
                 render={() => 
@@ -63,38 +65,3 @@ const App = ({ checkUserSession, currentUser }) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
-// constructor() {
-//   super();
-//   this.state = {
-//     currentUser: null
-//   }
-// }
-
-// unsubscribeFromAuth = null;
-
-// componentDidMount() {
-
-//   this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-//     if(userAuth) {
-//         const userRef = await createUserProfileDocument(userAuth);
-//         userRef.onSnapshot(snapShot => {
-//           this.setState({
-//             currentUser: {
-//               id: snapShot.id,
-//               ...snapShot.data()
-//             }
-//           }, () => console.log(this.state))
-//         })
-//       } else {
-//         this.setState({
-//           currentUser: userAuth
-//         }, () => console.log(this.state))
-//       } 
-//     }  
-    
-//   )
-// }
-
-// componentWillUnmount() {
-//   this.unsubscribeFromAuth();
-// }

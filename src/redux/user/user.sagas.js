@@ -52,7 +52,7 @@ export function* signOut() {
    }
 };
 
-export function* register({payload :{email, password, displayName}}) {
+export function* register({payload :{email, password, displayName }}) {
    try {
       const { user } = yield auth.createUserWithEmailAndPassword(email, password);
       yield put(registerSuccess({ user, additionalData: { displayName } }));
