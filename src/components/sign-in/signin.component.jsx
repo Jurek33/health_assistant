@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+
 import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
-// import { auth } from '../../firebase/firebase.utils';
-import { emailSignInStart } from '../../redux/user/user.actions';
-import { SignInError } from '../error-boundary/error-boundary.component';
 import Spinner from '../spinner/spinner.component';
+import { SignInError } from '../error-boundary/error-boundary.component';
+
+import { emailSignInStart } from '../../redux/user/user.actions';
 import { selectError, selectIsPending } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 

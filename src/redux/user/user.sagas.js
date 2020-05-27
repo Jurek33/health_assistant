@@ -8,7 +8,7 @@ import {
    signOutSuccess, 
    signOutFailure,
    registerSuccess,
-   registerFailure
+   registerFailure,
  } from './user.actions';
 
 export function* getSnapShotFromUserAuth(userAuth, additionalData) {
@@ -65,6 +65,10 @@ export function* signInAfterRegister({ payload: { user, additionalData } }) {
    yield getSnapShotFromUserAuth(user, additionalData);
 };
 
+export function* reserveTicket() {
+   
+};
+
 export function* onEmailSignInStart() {
    yield takeLatest(userActionTypes.EMAIL_SIGN_IN_START, signInWithEmail)
 };
@@ -85,12 +89,17 @@ export function* onRegisterSuccess() {
    yield takeLatest(userActionTypes.REGISTER_SUCCESS, signInAfterRegister)
 };
 
+export function* onReservationStart() {
+   yield takeLatest(userActionTypes.RESERVATION_START, reserveTicket)
+};
+
 export function* userSagas() {
    yield all([ 
       call(onEmailSignInStart),
       call(isUserAuthenticated),
       call(onSignOutStart),
       call(onRegisterStart),
-      call(onRegisterSuccess)
+      call(onRegisterSuccess),
+      call(onReservationStart)
     ]);
 };

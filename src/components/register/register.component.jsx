@@ -5,13 +5,16 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
 import Spinner from '../spinner/spinner.component';
 import { PasswordError } from '../error-boundary/error-boundary.component';
+import { RegisterError } from '../error-boundary/error-boundary.component';
+
 import { registerStart } from '../../redux/user/user.actions';
 import { selectIsPending } from '../../redux/user/user.selector';
+import { selectError } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 
 import './register.style.scss';
 
-const Register = ({registerStart, isPending}) => {
+const Register = ({registerStart, isPending, error}) => {
 
 	const [userCredentials, setUserCredentials] = useState({ 
 		displayName: '',
@@ -83,7 +86,8 @@ const Register = ({registerStart, isPending}) => {
 						{ prevState.isPasswFailed ? <PasswordError /> : null }
 					</div>
 					<div>
-						{ isPending ? <div>Just a few moments <Spinner /> </div> : null }
+						{ isPending ? <div>Just a few moments <Spinner /> </div> :
+							error ? <RegisterError /> : null }
 					</div>
 				</div>
 				<Button type="submit">Register</Button>
@@ -97,7 +101,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-   isPending: selectIsPending
+	isPending: selectIsPending,
+	error: selectError
  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

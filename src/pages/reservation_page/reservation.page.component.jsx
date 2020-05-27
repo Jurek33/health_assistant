@@ -1,11 +1,13 @@
 import React from 'react';
 import './reservation.page.style.scss';
+
 import Header from '../../components/header/header.component';
 import Footer from '../../components/footer/footer.component';
+import ReservationForm from '../../components/reservation-form/reservation.form.component';
+
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import ReservationForm from '../../components/reservation-form/reservation.form.component';
 
 const ReservationPage = ({currentUser}) => {
    return (

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import './reservation.form.style.scss';import FormInput from '../form-input/form-input.component';
+import { connect } from 'react-redux';
+import './reservation.form.style.scss';
+
+import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
-;
+
+import { reservationStart } from '../../redux/user/user.actions';
+import { createUserTicketDocument } from '../../firebase/firebase.utils';
+
 const ReservationForm = () => {
 
    const [initialData, setUserData] = useState({
@@ -16,7 +22,7 @@ const ReservationForm = () => {
 
    const handleSubmit = async event => {
       event.preventDefault();
-      console.log(event)
+      createUserTicketDocument({legalName});
    }
 
    return (
@@ -36,4 +42,8 @@ const ReservationForm = () => {
    )
 }
 
-export default ReservationForm;
+const mapDispatchToProps = dispatch => ({
+   reservationStart: initialData => dispatch(reservationStart(initialData))
+})
+
+export default connect(null, mapDispatchToProps)(ReservationForm);

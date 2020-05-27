@@ -19,3 +19,11 @@ export const PasswordError = () => {
       </div>
    )
 }
+
+export const RegisterError = () => {
+   return(
+      <div className='register-failure-message'>
+         Registration failed. This email address is assigned to existing account
+      </div> 
+   )
+}

@@ -40,24 +40,20 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
    return userRef;
  }
 
-//  export const createUserTicketDocument = async (userAuth, additionalData) => {
-//    if(!userAuth) return;
-
-//    const userTicketRef = firestore.doc(`users/${userAuth.uid}/tickets`);
-//    const snapShot = await userTicketRef.get();
-//    if(snapShot) {
-//     const { legalName } = userAuth;
-//      try {
-//      await userTicketRef.set({
-//         legalName,
-//         ...additionalData
-//      })
-//    } catch(err) {
-//      console.log('error creating ticket', err.message)
-//    }
-//   }
-//    return userTicketRef;
-//  }
+export const createUserTicketDocument = async ticketData => {
+  const userAuth = await getCurrentUser();
+  const tickets = userAuth.uid.tickets;
+  const userTicketsRef = firestore.doc(`users/${userAuth.uid}/tickets/${tickets}`);
+  const { legalName } = ticketData;
+  try {
+    await tickets.push(userTicketsRef.set({
+      legalName
+    }))
+  } catch(err) {
+    console.log('error creating ticket', err.message)
+  }
+  return userTicketsRef;
+}
 
  export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {

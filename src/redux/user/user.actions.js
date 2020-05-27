@@ -46,3 +46,18 @@ export const registerFailure = error => ({
    type: userActionTypes.REGISTER_FAILURE,
    payload: error
 });
+
+export const reservationStart = (initialData) => ({
+   type: userActionTypes.RESERVATION_START,
+   payload: initialData
+});
+
+export const reservationSuccess = ({additionalData}) => ({
+   type: userActionTypes.RESERVATION_SUCCESS,
+   payload: {additionalData}
+});
+
+export const reservationFailure = error => ({
+   type: userActionTypes.RESERVATION_FAILURE,
+   payload: error
+});
