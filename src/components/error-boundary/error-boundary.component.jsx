@@ -27,3 +27,11 @@ export const RegisterError = () => {
       </div> 
    )
 }
+
+export const ReservationError = () => {
+   return(
+      <div className='reservation-failure-message'>
+         Reservation failed, please refresh the page and try again
+      </div> 
+   )
+}

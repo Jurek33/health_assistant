@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import admin from 'firebase';
 
 const config = {
    apiKey: "AIzaSyCmKZ28n0lEjl_c1bxJHD0k01bBQ_CPamY",
@@ -40,19 +41,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
    return userRef;
  }
 
-export const createUserTicketDocument = async ticketData => {
+export const createUserTicket = async ticketData => {
   const userAuth = await getCurrentUser();
-  const tickets = userAuth.uid.tickets;
-  const userTicketsRef = firestore.doc(`users/${userAuth.uid}/tickets/${tickets}`);
-  const { legalName } = ticketData;
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const updates = {
+    tickets: admin.firestore.FieldValue.arrayUnion(ticketData)
+  }
   try {
-    await tickets.push(userTicketsRef.set({
-      legalName
-    }))
+    userRef.update(updates)
   } catch(err) {
     console.log('error creating ticket', err.message)
   }
-  return userTicketsRef;
+  return userRef;
 }
 
  export const getCurrentUser = () => {

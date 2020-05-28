@@ -47,14 +47,14 @@ export const registerFailure = error => ({
    payload: error
 });
 
-export const reservationStart = (initialData) => ({
+export const reservationStart = (ticketData) => ({
    type: userActionTypes.RESERVATION_START,
-   payload: initialData
+   payload: ticketData
 });
 
-export const reservationSuccess = ({additionalData}) => ({
+export const reservationSuccess = (ticketData) => ({
    type: userActionTypes.RESERVATION_SUCCESS,
-   payload: {additionalData}
+   payload: ticketData
 });
 
 export const reservationFailure = error => ({

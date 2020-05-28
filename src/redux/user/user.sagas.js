@@ -1,6 +1,6 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import userActionTypes from './user.types';
-import { auth, createUserProfileDocument, getCurrentUser } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument, createUserTicket, getCurrentUser } from '../../firebase/firebase.utils';
 
 import { 
    signInSuccess, 
@@ -9,6 +9,8 @@ import {
    signOutFailure,
    registerSuccess,
    registerFailure,
+   reservationSuccess,
+   reservationFailure,
  } from './user.actions';
 
 export function* getSnapShotFromUserAuth(userAuth, additionalData) {
@@ -65,8 +67,13 @@ export function* signInAfterRegister({ payload: { user, additionalData } }) {
    yield getSnapShotFromUserAuth(user, additionalData);
 };
 
-export function* reserveTicket() {
-   
+export function* reserveTicket({payload: {legalName, policyNumber, location}}) {
+   try {
+      yield createUserTicket({legalName, policyNumber, location});
+      yield put(reservationSuccess({ticketData: {legalName, policyNumber, location}}))
+   } catch(err) {
+      yield put(reservationFailure(err))
+   }
 };
 
 export function* onEmailSignInStart() {
