@@ -35,3 +35,19 @@ export const ReservationError = () => {
       </div> 
    )
 }
+
+export const SelectLocationError = () => {
+   return (
+      <div className='location-failure-message'>
+         Please select the location from the list above
+      </div> 
+   )
+}
+
+export const SelectDeptError = () => {
+   return (
+      <div className='dept-failure-message'>
+         Please select the department from the list above
+      </div> 
+   )
+}

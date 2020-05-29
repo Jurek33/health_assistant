@@ -64,6 +64,11 @@ export const createUserTicket = async ticketData => {
   })
 }
 
+export const getLocations = async () => {
+  //figure out how to access locations and then pass them to options as props
+  
+}
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
