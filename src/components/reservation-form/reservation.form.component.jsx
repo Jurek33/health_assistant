@@ -6,7 +6,7 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
 import Spinner from '../spinner/spinner.component';
 import { ReservationError, SelectLocationError, SelectDeptError } from '../error-boundary/error-boundary.component';
-import { SelectLocation, SelectDepartment } from '../select-input/select-input.component';
+import { SelectLocation, SelectDepartment, SelectTimeSlot } from '../select-input/select-input.component';
 
 import { reservationStart } from '../../redux/user/user.actions';
 import { selectIsPending } from '../../redux/user/user.selector';
@@ -90,6 +90,7 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
                value={department}
                onChange={handleChoice}
             />
+            <SelectTimeSlot />
             <div>
                { isPending ? <div>Just a few moments <Spinner /> </div>:
                   error ? <ReservationError /> : null }

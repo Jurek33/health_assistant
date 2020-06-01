@@ -65,8 +65,21 @@ export const createUserTicket = async ticketData => {
 }
 
 export const getLocations = async () => {
-  //figure out how to access locations and then pass them to options as props
-  
+  const locationsRef = firestore.collection('locations');
+  const loactionsSnapShot = await locationsRef.get();
+  const locations = []
+  if(loactionsSnapShot.empty) {
+    console.log('collection is empty');
+    return;
+  }
+  try {
+    loactionsSnapShot.forEach(doc => {
+      locations.push(doc.data())
+    })
+  } catch(err) {
+    console.log(err.message)
+  }
+  return locations;
 }
 
 firebase.initializeApp(config);
