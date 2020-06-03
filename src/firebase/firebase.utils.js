@@ -82,6 +82,20 @@ export const getLocations = async () => {
   return locations;
 }
 
+export const getLocationById = async id => {
+  const locationRef = firestore.doc(`locations/${id}`);
+  const locationSnapShot = await locationRef.get();
+  if(!locationSnapShot) {
+    console.log('no document found');
+    return;
+  }
+  try {
+    return locationSnapShot.data()
+  } catch(err) {
+    console.log(err.message)
+  }
+}
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();

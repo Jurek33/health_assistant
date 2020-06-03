@@ -10,12 +10,19 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
 const ReservationPage = ({currentUser}) => {
+   const getTomorrowDay = () => {
+      let today = new Date();
+      today.setDate(today.getDate()+1);
+      const arr = [today.getMonth()+1, '/', today.getDate(),'/', today.getFullYear()]
+      return(arr)
+   }
    return (
       <div className="container">
          <Header className="header"/>
             <div className="main-content">
                <h3 className="greeting">Welcome, {currentUser.displayName}</h3>
                <h4>This is reservation page</h4>
+                  <h4>Please note that reservations are made for tomorrow date, which is {getTomorrowDay()}</h4>
                <ReservationForm />
             </div>
          <Footer className="footer"/>

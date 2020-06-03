@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getLocations } from '../../firebase/firebase.utils';
+import { getLocations, getLocationById } from '../../firebase/firebase.utils';
 import './select-input.style.scss';
-import TimeSlots from '../time-slots/time-slots.component';
 
 export const SelectLocation = ({handleChoice, ...otherProperties}) => {
    const [prevState, setState] = useState({
@@ -49,17 +48,10 @@ export const SelectDepartment = ({handleChoice, ...otherProperties}) => {
    )
 }
 
-export const SelectTimeSlot = () => {
-   const [prevState, setState] = useState({slots: ''})
-
+export const SelectTimeSlot = ({id}) => {
    useEffect(() => {
-      getLocations()
-      .then(data => setState({slots: data[0].name}))
-   },[])
-
-   //try to use same way (select) as with location and then convert it to components as with wyncode
-
-   return (
-      <TimeSlots items={prevState.slots}/>
-   )
+      getLocationById(id).then(data => console.log(data))
+   }, [id]);
+   return null
 }
+

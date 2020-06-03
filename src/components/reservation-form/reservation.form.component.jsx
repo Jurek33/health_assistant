@@ -14,16 +14,18 @@ import { selectError } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 
 const ReservationForm = ({reservationStart, isPending, error}) => {
+   //for futher updates: make sure there is no way to provide negative policy number
 
    const [initialData, setUserData] = useState({
       legalName: '',
       policyNumber: '',
       location: '',
+      locationId: 0,
       department: '',
       isLocationSelectFailed: false,
       isDepertmentSelectFailed: false
    });
-   const { legalName, policyNumber, location, department, isLocationSelectFailed, isDepertmentSelectFailed } = initialData;
+   const { legalName, policyNumber, location, locationId, department, isLocationSelectFailed, isDepertmentSelectFailed } = initialData;
 
    const handleChange = event => {
       const { name, value } = event.target;
@@ -32,12 +34,38 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
 
    const handleChoice = event => {
       const { name, value } = event.target;
-      setUserData({
-         ...initialData,
-         [name]: value,
-         isLocationSelectFailed: false,
-         isDepertmentSelectFailed: false
-      })
+      if(value==='clinic 1') {
+         setUserData({
+            ...initialData,
+            [name]: value,
+            locationId: 1,
+            isLocationSelectFailed: false,
+            isDepertmentSelectFailed: false
+         })
+      } else if(value==='clinic 2') {
+         setUserData({
+            ...initialData,
+            [name]: value,
+            locationId: 2,
+            isLocationSelectFailed: false,
+            isDepertmentSelectFailed: false
+         })
+      } else if(value==='clinic 3') {
+         setUserData({
+            ...initialData,
+            [name]: value,
+            locationId: 3,
+            isLocationSelectFailed: false,
+            isDepertmentSelectFailed: false
+         })
+      } else {
+         setUserData({
+            ...initialData,
+            [name]: value,
+            isLocationSelectFailed: false,
+            isDepertmentSelectFailed: false
+         })
+      }
    }
 
    const handleSubmit = async event => {
@@ -90,7 +118,7 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
                value={department}
                onChange={handleChoice}
             />
-            <SelectTimeSlot />
+            <SelectTimeSlot id={locationId}/>
             <div>
                { isPending ? <div>Just a few moments <Spinner /> </div>:
                   error ? <ReservationError /> : null }

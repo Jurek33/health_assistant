@@ -9,4 +9,4 @@ const SingleSlot = ({item}) => {
    )
 }
 
-export default SingleSlot;
+export default SingleSlot
