@@ -2,12 +2,10 @@ import React from 'react';
 import SingleSlot from './single-slot.component';
 import './time-slots.style.scss';
 
-const TimeSlots = ({items}) => {
+const TimeSlots = ({items, ...otherProperties}) => {
    return (
-      <div className='slots'>
-         <div>I am time slots component</div>
-         {Object.keys(items).map(item => <SingleSlot key={item} item={item}/>)}
-      </div>
+         items.map(item => 
+         <SingleSlot key={item.value} item={item} {...otherProperties}/>)
    )
 }
 

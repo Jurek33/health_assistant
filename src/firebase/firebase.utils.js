@@ -44,11 +44,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 export const createUserTicket = async ticketData => {
   const userAuth = await getCurrentUser();
   const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const locationRef = firestore.doc(`locations/1`);
+  const locationSnapShot = await locationRef.get();
+  const slotsSnapShot = locationSnapShot.data().timeSlots;
   const updates = {
     tickets: admin.firestore.FieldValue.arrayUnion(ticketData)
   }
   try {
-    userRef.update(updates)
+    // userRef.update(updates);
+    //MAKE SURE IT WORKS CORRECTLY + FIND OUT HOW TO PASS VALUE 
+    console.log(slotsSnapShot)
+    locationRef.update({timeSlots: admin.firestore.FieldValue.arrayRemove({isAvaliable: true, value:'9AM-10AM'})});
+    locationRef.update({timeSlots: admin.firestore.FieldValue.arrayUnion({isAvaliable: false, value:'9AM-10AM'})});
   } catch(err) {
     console.log('error creating ticket', err.message)
   }

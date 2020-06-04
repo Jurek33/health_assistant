@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getLocations, getLocationById } from '../../firebase/firebase.utils';
 import './select-input.style.scss';
+import TimeSlots from '../time-slots/time-slots.component';
 
 export const SelectLocation = ({handleChoice, ...otherProperties}) => {
    const [prevState, setState] = useState({
@@ -48,10 +49,25 @@ export const SelectDepartment = ({handleChoice, ...otherProperties}) => {
    )
 }
 
-export const SelectTimeSlot = ({id}) => {
+export const SelectTimeSlot = ({id, location, handleChoice, ...otherProperties}) => {
+   const [prevState, setState] = useState({ locationData: location})
+
    useEffect(() => {
-      getLocationById(id).then(data => console.log(data))
+      getLocationById(id).then(data => setState({locationData: data}))
    }, [id]);
-   return null
+
+   const { locationData } = prevState;
+
+   return (
+      location==='none' || !locationData ? 
+      null : 
+      <div>
+         <label className="label">Select time slot</label>
+         <select name='timeSlot' onChange={handleChoice} {...otherProperties} >
+            <option value='none'>not selected</option>
+            <TimeSlots items={locationData.timeSlots}/>
+         </select>
+      </div>
+   )
 }
 

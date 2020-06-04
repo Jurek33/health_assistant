@@ -51,3 +51,11 @@ export const SelectDeptError = () => {
       </div> 
    )
 }
+
+export const SelectTimeError = () => {
+   return (
+      <div className='time-failure-message'>
+         Please select time slot from the list above
+      </div> 
+   )
+}

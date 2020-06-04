@@ -5,7 +5,7 @@ import './reservation.form.style.scss';
 import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
 import Spinner from '../spinner/spinner.component';
-import { ReservationError, SelectLocationError, SelectDeptError } from '../error-boundary/error-boundary.component';
+import { ReservationError, SelectLocationError, SelectDeptError, SelectTimeError } from '../error-boundary/error-boundary.component';
 import { SelectLocation, SelectDepartment, SelectTimeSlot } from '../select-input/select-input.component';
 
 import { reservationStart } from '../../redux/user/user.actions';
@@ -22,10 +22,12 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
       location: '',
       locationId: 0,
       department: '',
+      timeSlot: '',
       isLocationSelectFailed: false,
-      isDepertmentSelectFailed: false
+      isDepertmentSelectFailed: false,
+      isTimeSelectFailed: false
    });
-   const { legalName, policyNumber, location, locationId, department, isLocationSelectFailed, isDepertmentSelectFailed } = initialData;
+   const { legalName, policyNumber, location, locationId, timeSlot, department, isLocationSelectFailed, isDepertmentSelectFailed, isTimeSelectFailed } = initialData;
 
    const handleChange = event => {
       const { name, value } = event.target;
@@ -70,6 +72,7 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
 
    const handleSubmit = async event => {
       event.preventDefault();
+      console.log(initialData)
       if(!location || location==='none') {
          setUserData({...initialData, isLocationSelectFailed: true});
          return;
@@ -78,10 +81,21 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
          setUserData({...initialData, isDepertmentSelectFailed: true});
          return;
       }
-      await reservationStart({legalName, policyNumber, location, department});
+      if(!timeSlot || timeSlot==='none') {
+         setUserData({...initialData, isTimeSelectFailed: true});
+         return;
+      }
+      await reservationStart({legalName, policyNumber, location, locationId, department, timeSlot});
       setUserData({
          legalName: '',
-         policyNumber: ''
+         policyNumber: '',
+         location: '',
+         locationId: 0,
+         department: '',
+         timeSlot: '',
+         isLocationSelectFailed: false,
+         isDepertmentSelectFailed: false,
+         isTimeSelectFailed: false
       })
    }
 
@@ -118,7 +132,15 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
                value={department}
                onChange={handleChoice}
             />
-            <SelectTimeSlot id={locationId}/>
+            <SelectTimeSlot
+               type='option'
+               name='timeSlot'
+               form='reservation'
+               id={locationId}
+               onChange={handleChoice}
+               location={location} 
+               value={timeSlot}
+            />
             <div>
                { isPending ? <div>Just a few moments <Spinner /> </div>:
                   error ? <ReservationError /> : null }
@@ -128,6 +150,9 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
             </div>
             <div>
                { isDepertmentSelectFailed ? <SelectDeptError /> :  null}
+            </div>
+            <div>
+               {isTimeSelectFailed ? <SelectTimeError /> : null}
             </div>
             <Button type='submit'>Submit</Button>
          </form>
