@@ -1,14 +1,10 @@
 import React from 'react';
-import Button from '../custom-button/custom.button.component';
+import SingleEvent from './single.event';
 import './event.detail.style.scss';
 
-const EventDetail = () => {
+const EventDetail = ({tickets}) => {
    return (
-      <div className="detail-container">
-         <div className="detail-item">Date <Button>view ticket</Button> </div>
-         <div className="detail-item">Time <Button>reschedule</Button></div>
-         <div className="detail-item">Location <Button>cancel</Button></div>
-      </div>
+      tickets.map(ticket => <SingleEvent key={ticket.timeSlot} ticket={ticket}/>)
    )
 }
 
