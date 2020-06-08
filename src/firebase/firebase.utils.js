@@ -117,6 +117,28 @@ export const getUserTickets = async () => {
   }
 }
 
+export const removeTicket = async ticket => {
+  const remove = {
+    tickets: admin.firestore.FieldValue.arrayRemove(ticket)
+  }
+  const clearSlot = {
+    timeSlots: admin.firestore.FieldValue.arrayRemove({isAvaliable: false, value:`${ticket.timeSlot}`})
+  }
+  const createSlot = {
+    timeSlots: admin.firestore.FieldValue.arrayUnion({isAvaliable: true, value:`${ticket.timeSlot}`})
+  }
+  const userAuth = await getCurrentUser();
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const locationRef = firestore.doc(`locations/${ticket.locationId}`);
+  try {
+    userRef.update(remove)
+    locationRef.update(clearSlot);
+    locationRef.update(createSlot)
+  } catch(err) {
+    console.log(err.message)
+  }
+}
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();

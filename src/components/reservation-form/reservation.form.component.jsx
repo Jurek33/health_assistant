@@ -15,6 +15,12 @@ import { createStructuredSelector } from 'reselect';
 
 const ReservationForm = ({reservationStart, isPending, error}) => {
    //for futher updates: make sure there is no way to provide negative policy number
+   const getTomorrowDay = () => {
+      let today = new Date();
+      today.setDate(today.getDate()+1);
+      const arr = [today.getMonth()+1, '/', today.getDate(),'/', today.getFullYear()]
+      return(arr.join(''))
+   }
 
    const [initialData, setUserData] = useState({
       legalName: '',
@@ -22,12 +28,13 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
       location: '',
       locationId: 0,
       department: '',
+      date: getTomorrowDay(),
       timeSlot: '',
       isLocationSelectFailed: false,
       isDepertmentSelectFailed: false,
       isTimeSelectFailed: false
    });
-   const { legalName, policyNumber, location, locationId, timeSlot, department, isLocationSelectFailed, isDepertmentSelectFailed, isTimeSelectFailed } = initialData;
+   const { legalName, policyNumber, location, locationId, date, timeSlot, department, isLocationSelectFailed, isDepertmentSelectFailed, isTimeSelectFailed } = initialData;
 
    const handleChange = event => {
       const { name, value } = event.target;
@@ -85,7 +92,7 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
          setUserData({...initialData, isTimeSelectFailed: true});
          return;
       }
-      await reservationStart({legalName, policyNumber, location, locationId, department, timeSlot});
+      await reservationStart({legalName, policyNumber, location, locationId, department, date, timeSlot});
       setUserData({
          legalName: '',
          policyNumber: '',
@@ -93,6 +100,7 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
          locationId: 0,
          department: '',
          timeSlot: '',
+         date: getTomorrowDay(),
          isLocationSelectFailed: false,
          isDepertmentSelectFailed: false,
          isTimeSelectFailed: false

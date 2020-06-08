@@ -6,7 +6,7 @@ const TimeSlots = ({items, ...otherProperties}) => {
    return (
       items.map(item => 
          <SingleSlot 
-            key={Math.floor(Math.random()*item.locationId*1000)} 
+            key={Math.floor(Math.random()*1000000)} 
             item={item} 
             {...otherProperties}
       />)

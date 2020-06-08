@@ -4,7 +4,7 @@ import './event.detail.style.scss';
 
 const EventDetail = ({tickets}) => {
    return (
-      tickets.map(ticket => <SingleEvent key={ticket.timeSlot} ticket={ticket}/>)
+      tickets.map(ticket => <SingleEvent key={Math.floor(Math.random()*100000)} ticket={ticket}/>)
    )
 }
 

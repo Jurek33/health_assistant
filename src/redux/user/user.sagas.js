@@ -67,10 +67,10 @@ export function* signInAfterRegister({ payload: { user, additionalData } }) {
    yield getSnapShotFromUserAuth(user, additionalData);
 };
 
-export function* reserveTicket({payload: {legalName, policyNumber, location, locationId, department, timeSlot}}) {
+export function* reserveTicket({payload: {legalName, policyNumber, location, locationId, department, date, timeSlot}}) {
    try {
-      yield createUserTicket({legalName, policyNumber, location, locationId, department, timeSlot});
-      yield put(reservationSuccess({ticketData: {legalName, policyNumber, location, department, timeSlot}}))
+      yield createUserTicket({legalName, policyNumber, location, locationId, department, date, timeSlot});
+      yield put(reservationSuccess({ticketData: {legalName, policyNumber, location, department, date, timeSlot}}))
    } catch(err) {
       yield put(reservationFailure(err))
    }
