@@ -17,6 +17,7 @@ const userReducer = (state = INITIAL_STATE , action) => {
             isPending: false
          }
       case userActionTypes.RESERVATION_SUCCESS:
+      case userActionTypes.CANCELLATION_SUCCESS:
          return {
             ...state,
             error: null,
@@ -25,6 +26,7 @@ const userReducer = (state = INITIAL_STATE , action) => {
       case userActionTypes.EMAIL_SIGN_IN_START:
       case userActionTypes.REGISTER_START:
       case userActionTypes.RESERVATION_START:
+      case userActionTypes.CANCELLATION_START:
             return {
                ...state,
                isPending: true
@@ -39,6 +41,7 @@ const userReducer = (state = INITIAL_STATE , action) => {
       case userActionTypes.SIGN_IN_FAILURE:
       case userActionTypes.REGISTER_FAILURE:
       case userActionTypes.RESERVATION_FAILURE:
+      case userActionTypes.CANCELLATION_FAILURE:
             return {
                 ...state,
                 error: action.payload,

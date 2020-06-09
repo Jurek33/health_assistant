@@ -79,7 +79,6 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
 
    const handleSubmit = async event => {
       event.preventDefault();
-      console.log(initialData)
       if(!location || location==='none') {
          setUserData({...initialData, isLocationSelectFailed: true});
          return;

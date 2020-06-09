@@ -1,5 +1,7 @@
 import React from 'react';
 import './error-boundary.style.scss';
+import { Link } from 'react-router-dom';
+import Button from '../custom-button/custom.button.component';
 
 export const SignInError = () => {
    return(
@@ -57,5 +59,16 @@ export const SelectTimeError = () => {
       <div className='time-failure-message'>
          Please select time slot from the list above
       </div> 
+   )
+}
+
+export const AppointmentCancelation = () => {
+   return (
+      <div className='appointment-canceled-message'>
+         This appointment was canceled
+         <div>
+            <Button><Link className='link' to='/reserve'>Make another one</Link></Button> 
+         </div>
+      </div>
    )
 }

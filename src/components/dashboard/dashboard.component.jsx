@@ -4,6 +4,7 @@ import EventDetail from '../event-detail/event.detail.component';
 import Spinner from '../spinner/spinner.component';
 import { getUserTickets } from '../../firebase/firebase.utils';
 import { Link } from 'react-router-dom';
+import Button from '../custom-button/custom.button.component';
 
 const Dashboard = () => {
    //for further updates: make sure not to display tickets with past date
@@ -36,7 +37,7 @@ const Dashboard = () => {
            : 
            <div className="no-event-boundary">
              <h4 className="message">You have no events upcoming</h4>
-             <Link className="link" to="/reserve"> Reserve a visit </Link>
+             <Button children={<Link className="link" to="/reserve"> Reserve a visit </Link>} />
            </div> 
          }
       </div>

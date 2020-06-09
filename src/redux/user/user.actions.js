@@ -61,3 +61,18 @@ export const reservationFailure = error => ({
    type: userActionTypes.RESERVATION_FAILURE,
    payload: error
 });
+
+export const cancellationStart = (ticketData) => ({
+   type: userActionTypes.CANCELLATION_START,
+   payload: ticketData
+});
+
+export const cancellationSuccess = (ticketData) => ({
+   type: userActionTypes.CANCELLATION_SUCCESS,
+   payload: ticketData
+});
+
+export const cancellationFailure = error => ({
+   type: userActionTypes.CANCELLATION_FAILURE,
+   payload: error
+});

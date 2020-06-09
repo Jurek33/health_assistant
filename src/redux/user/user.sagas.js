@@ -1,6 +1,6 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import userActionTypes from './user.types';
-import { auth, createUserProfileDocument, createUserTicket, getCurrentUser } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument, createUserTicket, getCurrentUser, removeTicket } from '../../firebase/firebase.utils';
 
 import { 
    signInSuccess, 
@@ -11,6 +11,8 @@ import {
    registerFailure,
    reservationSuccess,
    reservationFailure,
+   cancellationSuccess,
+   cancellationFailure
  } from './user.actions';
 
 export function* getSnapShotFromUserAuth(userAuth, additionalData) {
@@ -76,6 +78,15 @@ export function* reserveTicket({payload: {legalName, policyNumber, location, loc
    }
 };
 
+export function* cancelTicket({payload: ticketData}) {
+   try {
+      yield removeTicket(ticketData);
+      yield put(cancellationSuccess(ticketData));
+   } catch(err) {
+      yield put(cancellationFailure(err))
+   }
+}
+
 export function* onEmailSignInStart() {
    yield takeLatest(userActionTypes.EMAIL_SIGN_IN_START, signInWithEmail)
 };
@@ -100,6 +111,10 @@ export function* onReservationStart() {
    yield takeLatest(userActionTypes.RESERVATION_START, reserveTicket)
 };
 
+export function* onCancellationStart() {
+   yield takeLatest(userActionTypes.CANCELLATION_START, cancelTicket)
+};
+
 export function* userSagas() {
    yield all([ 
       call(onEmailSignInStart),
@@ -107,6 +122,7 @@ export function* userSagas() {
       call(onSignOutStart),
       call(onRegisterStart),
       call(onRegisterSuccess),
-      call(onReservationStart)
+      call(onReservationStart),
+      call(onCancellationStart)
     ]);
 };
