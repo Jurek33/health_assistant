@@ -24,7 +24,7 @@ const Header = ({ signOutStart }) => {
             </div>
             <Link to='/home'><span className="navbar-item"><HomeIcon className="icon"/> Home</span></Link>
             <Link to='/reserve'><span className="navbar-item"><ReserveIcon className="icon"/> Reserve a visit</span></Link> 
-            <span className="navbar-item"><AccountIcon className="icon"/> My account</span>
+            <Link to='/account'><span className="navbar-item"><AccountIcon className="icon"/> My account</span></Link>
             <span className="navbar-item"><SettingsIcon className="icon"/> Settings</span>
             <Link onClick={signOutStart} to='/'><span className="navbar-item"><LogoutIcon className="icon"/> Log out</span></Link> 
          </div>

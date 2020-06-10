@@ -139,6 +139,17 @@ export const removeTicket = async ticket => {
   }
 }
 
+export const reauthenticateUser = async credentials => {
+  const user = firebase.auth().currentUser;
+  try{
+    //find a way to pass credential argument properly
+    const reAuth = await user.reauthenticateWithCredential(credentials);
+    return reAuth;
+  } catch(err) {
+    console.log(err.message)
+  }
+}
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();

@@ -12,6 +12,7 @@ import { reservationStart } from '../../redux/user/user.actions';
 import { selectIsPending } from '../../redux/user/user.selector';
 import { selectError } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
+import { Link } from 'react-router-dom';
 
 const ReservationForm = ({reservationStart, isPending, error}) => {
    //for futher updates: make sure there is no way to provide negative policy number
@@ -32,9 +33,22 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
       timeSlot: '',
       isLocationSelectFailed: false,
       isDepertmentSelectFailed: false,
-      isTimeSelectFailed: false
+      isTimeSelectFailed: false,
+      isReservationSucceed: false
    });
-   const { legalName, policyNumber, location, locationId, date, timeSlot, department, isLocationSelectFailed, isDepertmentSelectFailed, isTimeSelectFailed } = initialData;
+   const { 
+      legalName, 
+      policyNumber, 
+      location, 
+      locationId, 
+      date, 
+      timeSlot, 
+      department, 
+      isLocationSelectFailed, 
+      isDepertmentSelectFailed, 
+      isTimeSelectFailed,
+      isReservationSucceed
+   } = initialData;
 
    const handleChange = event => {
       const { name, value } = event.target;
@@ -102,67 +116,84 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
          date: getTomorrowDay(),
          isLocationSelectFailed: false,
          isDepertmentSelectFailed: false,
-         isTimeSelectFailed: false
+         isTimeSelectFailed: false,
+         isReservationSucceed: true
       })
    }
 
+   const anotherReservation = () => {
+      setUserData({...initialData, isReservationSucceed: false})
+   }
+
    return (
-      <div className='reservation-form'>
-         <form onSubmit={handleSubmit} id='reservation'>
-            <FormInput
-               type='text'
-               name='legalName'
-               value={legalName}
-               onChange={handleChange}
-               label='Your full legal name'
-               required
-            />
-            <FormInput
-               type='number'
-               name='policyNumber'
-               value={policyNumber}
-               onChange={handleChange}
-               label='Your insurance policy number'
-               required
-            />
-            <SelectLocation
-               type='option'
-               name='location'
-               form='reservation'
-               value={location}
-               onChange={handleChoice}
-            />
-            <SelectDepartment 
-               type='option'
-               name='department'
-               form='reservation'
-               value={department}
-               onChange={handleChoice}
-            />
-            <SelectTimeSlot
-               type='option'
-               name='timeSlot'
-               form='reservation'
-               id={locationId}
-               onChange={handleChoice}
-               location={location} 
-               value={timeSlot}
-            />
+      <div>
+         {
+            isReservationSucceed ? 
             <div>
-               { isPending ? <div>Just a few moments <Spinner /> </div>:
-                  error ? <ReservationError /> : null }
-            </div>
-            <div>
-               { isLocationSelectFailed ? <SelectLocationError /> : null}
-            </div>
-            <div>
-               { isDepertmentSelectFailed ? <SelectDeptError /> :  null}
-            </div>
-            <div>
-               {isTimeSelectFailed ? <SelectTimeError /> : null}
-            </div>
-            <Button type='submit'>Submit</Button>
-         </form>
+               <h4>Appointment was successfuly scheduled!</h4>
+               <div>Would you like to make another one?</div>
+               <Button onClick={anotherReservation}>Yes</Button>
+               <Button><Link to='/home'>No</Link></Button>
+            </div> 
+            :
+            <div className='reservation-form'>
+            <form onSubmit={handleSubmit} id='reservation'>
+               <FormInput
+                  type='text'
+                  name='legalName'
+                  value={legalName}
+                  onChange={handleChange}
+                  label='Your full legal name'
+                  required
+               />
+               <FormInput
+                  type='number'
+                  name='policyNumber'
+                  value={policyNumber}
+                  onChange={handleChange}
+                  label='Your insurance policy number'
+                  required
+               />
+               <SelectLocation
+                  type='option'
+                  name='location'
+                  form='reservation'
+                  value={location}
+                  onChange={handleChoice}
+               />
+               <SelectDepartment 
+                  type='option'
+                  name='department'
+                  form='reservation'
+                  value={department}
+                  onChange={handleChoice}
+               />
+               <SelectTimeSlot
+                  type='option'
+                  name='timeSlot'
+                  form='reservation'
+                  id={locationId}
+                  onChange={handleChoice}
+                  location={location} 
+                  value={timeSlot}
+               />
+               <div>
+                  { isPending ? <div>Just a few moments <Spinner /> </div>:
+                     error ? <ReservationError /> : null }
+               </div>
+               <div>
+                  { isLocationSelectFailed ? <SelectLocationError /> : null}
+               </div>
+               <div>
+                  { isDepertmentSelectFailed ? <SelectDeptError /> :  null}
+               </div>
+               <div>
+                  {isTimeSelectFailed ? <SelectTimeError /> : null}
+               </div>
+               <Button type='submit'>Submit</Button>
+            </form>
+         </div>
+         }
       </div>
    )
 }
