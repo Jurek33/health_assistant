@@ -1,17 +1,39 @@
 import React, { useState } from 'react';
 import Button from '../custom-button/custom.button.component'
-import { reauthenticateUser } from '../../firebase/firebase.utils';
+import EmailChange from '../email-change/email.change.component';
+
 import './data.manage.style.scss';
 
 const DataManage = () => {
-   const [prevState, setState] = useState({doesWantEmailChange: false})
-   const emailChangeBegin = () => setState({doesWantEmailChange: true})
-   const emailChangeEnd = () => setState({doesWantEmailChange: false})
-   const changeEmail = () => {
-      console.log(reauthenticateUser({email: 'johnyy@gmail.com', password: 'johny123'}))
+   const [prevState, setState] = useState({
+      doesWantEmailChange: false,
+      doesConfirmEmailChange: false,
+      email: '',
+      password: ''
+   })
+   const emailChangeBegin = () => {
+     return !doesConfirmEmailChange ? 
+      setState({
+        ...prevState, 
+        doesWantEmailChange: true
+      }) : null 
+   } 
+   const emailChangeEnd = () => {
+      return setState({
+         ...prevState, 
+         doesWantEmailChange: false, 
+         doesConfirmEmailChange: false
+      })
+   } 
+   const emailChangeConfirm = () => {
+      setState({...prevState, doesConfirmEmailChange: true, doesWantEmailChange: false})
+   }
+   const setCredentials = event => {
+      const { name, value } = event.target;
+      setState({...prevState, [name]: value})
    }
 
-   const { doesWantEmailChange } = prevState;
+   const { doesWantEmailChange, doesConfirmEmailChange, email, password } = prevState;
 
    return (
       <div className='buttons'>
@@ -21,11 +43,26 @@ const DataManage = () => {
                doesWantEmailChange ? 
                <div className='email-chanhe-confirm'>
                   <h4>Are you sure you want to change the email connected to this account?</h4>
-                  <Button onClick={changeEmail}>Yes</Button>
+                  <Button onClick={emailChangeConfirm}>Yes</Button>
                   <Button onClick={emailChangeEnd}>No</Button>
                </div>
                : null
             }
+         </div>
+         <div>
+            {
+               <div>
+                  {
+                     doesConfirmEmailChange ?
+                     <EmailChange 
+                     email={email} 
+                     password={password} 
+                     setCredentials={setCredentials}
+                     />
+                     : null
+                  }
+               </div> 
+            } 
          </div>
       </div>
    )

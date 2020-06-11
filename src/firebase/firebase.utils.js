@@ -139,14 +139,16 @@ export const removeTicket = async ticket => {
   }
 }
 
-export const reauthenticateUser = async credentials => {
+export const reauthenticateUser = async userData => {
   const user = firebase.auth().currentUser;
-  try{
-    //find a way to pass credential argument properly
-    const reAuth = await user.reauthenticateWithCredential(credentials);
-    return reAuth;
+  const { email, password } = userData;
+  const token = firebase.auth.EmailAuthProvider.credential(email, password);
+  try {
+    const data = await user.reauthenticateWithCredential(token);
+    return data.user.uid;
   } catch(err) {
-    console.log(err.message)
+    console.log(err.message);
+    return err;
   }
 }
 

@@ -1,6 +1,12 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import userActionTypes from './user.types';
-import { auth, createUserProfileDocument, createUserTicket, getCurrentUser, removeTicket } from '../../firebase/firebase.utils';
+import { 
+   auth, 
+   createUserProfileDocument, 
+   createUserTicket, 
+   getCurrentUser, 
+   removeTicket
+ } from '../../firebase/firebase.utils';
 
 import { 
    signInSuccess, 
@@ -85,7 +91,7 @@ export function* cancelTicket({payload: ticketData}) {
    } catch(err) {
       yield put(cancellationFailure(err))
    }
-}
+};
 
 export function* onEmailSignInStart() {
    yield takeLatest(userActionTypes.EMAIL_SIGN_IN_START, signInWithEmail)
