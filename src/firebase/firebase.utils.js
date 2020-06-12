@@ -148,7 +148,19 @@ export const reauthenticateUser = async userData => {
     return data.user.uid;
   } catch(err) {
     console.log(err.message);
-    return err;
+  }
+}
+
+export const changePrimaryEmail = async newEmail => {
+  const user = firebase.auth().currentUser;
+  const userRef = firestore.doc(`users/${user.uid}`);
+  try {
+    await user.updateEmail(newEmail);
+    userRef.update({email: newEmail});
+    return newEmail;
+  } catch(err) {
+    console.log(err.message);
+    return err.message
   }
 }
 

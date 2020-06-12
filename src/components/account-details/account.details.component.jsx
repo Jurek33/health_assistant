@@ -18,7 +18,7 @@ const AccountDetails = ({currentUser}) => {
       <div className='content'>
          <div className='details'>
             <div className='info'>Username: {currentUser.displayName}</div>
-            <div className='info'>Email: {currentUser.email}</div>
+            <div className='info'>Primary Email: {currentUser.email}</div>
             <div className='info'>User since: {date}</div>
          </div>
          <div className='additional-content'>

@@ -72,3 +72,19 @@ export const AppointmentCancelation = () => {
       </div>
    )
 }
+
+export const ReauthenticationError = () => {
+   return (
+      <div className='reauth-failure-message'>
+         Current primary email or password is incorrect. Fix the errors and try again
+      </div> 
+   )
+}
+
+export const EmailChangeFailure = () => {
+   return (
+      <div className='reauth-failure-message'>
+         It looks like the email address you try to assign to this account is already in use. Please use different email
+      </div> 
+   )
+}

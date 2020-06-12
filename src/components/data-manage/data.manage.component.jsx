@@ -9,7 +9,8 @@ const DataManage = () => {
       doesWantEmailChange: false,
       doesConfirmEmailChange: false,
       email: '',
-      password: ''
+      password: '',
+      newEmail: ''
    })
    const emailChangeBegin = () => {
      return !doesConfirmEmailChange ? 
@@ -33,7 +34,7 @@ const DataManage = () => {
       setState({...prevState, [name]: value})
    }
 
-   const { doesWantEmailChange, doesConfirmEmailChange, email, password } = prevState;
+   const { doesWantEmailChange, doesConfirmEmailChange, email, password, newEmail } = prevState;
 
    return (
       <div className='buttons'>
@@ -57,6 +58,8 @@ const DataManage = () => {
                      <EmailChange 
                      email={email} 
                      password={password} 
+                     newEmail={newEmail}
+                     state={prevState}
                      setCredentials={setCredentials}
                      />
                      : null
