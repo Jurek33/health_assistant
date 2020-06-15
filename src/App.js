@@ -13,7 +13,8 @@ const MainPage = lazy(() => import('./pages/main_page/mainpage.component'));
 const ReservationPage = lazy(() => import('./pages/reservation_page/reservation.page.component'));
 const SignInPage = lazy(() => import('./pages/sign-in_page/sign-in.page.component'));
 const RegisterPage = lazy(() => import('./pages/register_page/register.page.component'));
-const MyAccountPage = lazy(() => import('./pages/my-account_page/my.account.page.component'))
+const MyAccountPage = lazy(() => import('./pages/my-account_page/my.account.page.component'));
+const SettingsPage = lazy(() => import('./pages/settings_page/settings.page.component'));
 
 const App = ({ checkUserSession, currentUser }) => {
 
@@ -54,6 +55,12 @@ const App = ({ checkUserSession, currentUser }) => {
                 exact path='/account'
                 render={() =>
                   currentUser ? (<MyAccountPage/>) : (<Redirect to="/"/>)
+                }
+                />
+                <Route 
+                exact path='/settings'
+                render={() =>
+                  currentUser ? (<SettingsPage/>) : (<Redirect to="/"/>)
                 }
                 />
               </Suspense>
