@@ -1,10 +1,10 @@
 .wrapper {
    padding-top: 10px;
    padding-bottom: 10px;
-   background-color: lightgoldenrodyellow;
    height: auto;
    width: 100%;
-   position: relative;
+   position: absolute;
+   bottom: 2%
 }
 
 @media screen and (max-height: 440px) {

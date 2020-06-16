@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../App';
 import { connect } from 'react-redux';
 
 import { ReactComponent as Logo } from '../../assets/icon.svg';
@@ -16,17 +17,29 @@ import { Link } from 'react-router-dom';
 import './header.style.scss';
 
 const Header = ({ signOutStart }) => {
+   const theme = useContext(ThemeContext);
+   const { text_color } = theme;
    return (
       <div className="navbar-container">
          <div className="navbar">
             <div className="logo-container"> 
                <Logo className="logo"/>
             </div>
-            <Link to='/home'><span className="navbar-item"><HomeIcon className="icon"/> Home</span></Link>
-            <Link to='/reserve'><span className="navbar-item"><ReserveIcon className="icon"/> Reserve a visit</span></Link> 
-            <Link to='/account'><span className="navbar-item"><AccountIcon className="icon"/> My account</span></Link>
-            <Link to='/settings'><span className="navbar-item"><SettingsIcon className="icon"/> Settings</span></Link>
-            <Link onClick={signOutStart} to='/'><span className="navbar-item"><LogoutIcon className="icon"/> Log out</span></Link> 
+            <Link style={{color: text_color}} to='/home'>
+               <span className="navbar-item"><HomeIcon className="icon"/> Home</span>
+            </Link>
+            <Link style={{color: text_color}} to='/reserve'>
+               <span className="navbar-item"><ReserveIcon className="icon"/> Reserve a visit</span>
+            </Link> 
+            <Link style={{color: text_color}} to='/account'>
+               <span className="navbar-item"><AccountIcon className="icon"/> My account</span>
+            </Link>
+            <Link style={{color: text_color}} to='/settings'>
+               <span className="navbar-item"><SettingsIcon className="icon"/> Settings</span>
+            </Link>
+            <Link style={{color: text_color}} onClick={signOutStart} to='/'>
+               <span className="navbar-item"><LogoutIcon className="icon"/> Log out</span>
+            </Link> 
          </div>
       </div>
    )

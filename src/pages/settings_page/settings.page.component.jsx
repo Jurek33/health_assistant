@@ -7,14 +7,14 @@ import { selectCurrentUser } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
-const SettingsPage = ({currentUser}) => {
+const SettingsPage = ({currentUser, switchColor, switchDark, switchStandard}) => {
    return (
       <div className='container'>
          <Header className="header"/>
             <div className="main-content">
                <h3 className="greeting">Welcome, {currentUser.displayName}</h3>
                <div>Settings page</div>
-               <Settings />
+               <Settings switchColor={switchColor} switchDark={switchDark} switchStandard={switchStandard}/>
             </div>
          <Footer className="footer"/>
       </div>

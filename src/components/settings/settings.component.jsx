@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../custom-button/custom.button.component';
 import './settings.component.style.scss';
 
-const Settings = () => {
-   const [prevState, setState] = useState({backgroundColor: true})
-   const switchColor = () => setState({backgroundColor: !prevState.backgroundColor})
+const Settings = ({switchColor, switchDark, switchStandard}) => {
+
    return (
-      <div className={prevState.backgroundColor ? 'standard' : 'dark'}>
+      <div className='standard'>
          <div className='color-scheme'>
             <div>Choose color theme</div>
-            <Button onClick={switchColor}>Dark</Button>
-            <Button>Light</Button>
-            <Button>Standard</Button>
+            <Button onClick={switchColor}>Light</Button>
+            <Button onClick={switchDark}>Dark</Button>
+            <Button onClick={switchStandard}>Standard</Button>
          </div>
       </div>
    )
