@@ -3,7 +3,6 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../custom-button/custom.button.component';
 import Spinner from '../spinner/spinner.component';
 import { ReauthenticationError, EmailChangeFailure } from '../error-boundary/error-boundary.component';
-import { Link } from 'react-router-dom';
 import { reauthenticateUser, changePrimaryEmail } from '../../firebase/firebase.utils';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
@@ -52,7 +51,6 @@ const EmailChange = ({email, password, newEmail, setCredentials, currentUser}) =
                isEmailChangeSuccess ? <div>Email was changed successfuly. Refresh the page to see updates.</div>
                : 
                <div>
-                  <h4>Please fill out the form below</h4>
                   <form onSubmit={handleSubmit}>
                      <FormInput 
                         name="email"
@@ -96,7 +94,6 @@ const EmailChange = ({email, password, newEmail, setCredentials, currentUser}) =
                      </div>
                      <Button type='submit'>Confirm</Button> 
                   </form>
-                  <Button><Link className='link' to='/home'>Cancel</Link></Button>
                </div>
             }
          </div>

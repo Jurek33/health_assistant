@@ -22,9 +22,9 @@ export const SelectLocation = ({handleChoice, ...otherProperties}) => {
    const { info1, info2, info3 } = prevState;
 
    return (
-      <div className='options'>
-         <label className='label'>Select location</label>
-         <select name='location' onChange={handleChoice} {...otherProperties}>
+      <div className='options first'>
+         <label className='label'>Location</label>
+         <select className='select' name='location' onChange={handleChoice} {...otherProperties}>
             <option value='none'>not selected</option>
             <option value={info1.name}>{info1.name}</option>
             <option value={info2.name}>{info2.name}</option>
@@ -37,8 +37,8 @@ export const SelectLocation = ({handleChoice, ...otherProperties}) => {
 export const SelectDepartment = ({handleChoice, ...otherProperties}) => {
    return (
       <div className='options'>
-         <label className='label'>Select department</label>
-         <select name='location' onChange={handleChoice} {...otherProperties}>
+         <label className='label'>Department</label>
+         <select className='select' name='location' onChange={handleChoice} {...otherProperties}>
             <option value='none'>not selected</option>
             <option value='general care'>general care</option>
             <option value='cardiology'>cardiology</option>
@@ -61,9 +61,9 @@ export const SelectTimeSlot = ({id, location, handleChoice, ...otherProperties})
    return (
       location==='none' || !locationData ? 
       null : 
-      <div>
-         <label className="label">Select time slot</label>
-         <select name='timeSlot' onChange={handleChoice} {...otherProperties} >
+      <div className='options'>
+         <label className="label">Time slot</label>
+         <select className='select' name='timeSlot' onChange={handleChoice} {...otherProperties} >
             <option value='none'>not selected</option>
             <TimeSlots items={locationData.timeSlots}/>
          </select>

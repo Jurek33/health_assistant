@@ -38,14 +38,16 @@ const DataManage = () => {
 
    return (
       <div className='buttons'>
-         <Button onClick={emailChangeBegin}>Change Email</Button>
+         <div>
+            {!doesConfirmEmailChange ? <Button className='button button-change' onClick={emailChangeBegin}>Change Email</Button>: null}
+         </div>
          <div className='email-change'>
             {
                doesWantEmailChange ? 
                <div className='email-chanhe-confirm'>
-                  <h4>Are you sure you want to change the email connected to this account?</h4>
-                  <Button onClick={emailChangeConfirm}>Yes</Button>
-                  <Button onClick={emailChangeEnd}>No</Button>
+                  <h5 className='header-confirmation-message'>Are you sure you want to change the email connected to this account?</h5>
+                  <Button className='button button-confirm' onClick={emailChangeConfirm}>Yes</Button>
+                  <Button className='button button-confirm' onClick={emailChangeEnd}>No</Button>
                </div>
                : null
             }

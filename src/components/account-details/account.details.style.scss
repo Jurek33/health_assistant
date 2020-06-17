@@ -1,0 +1,35 @@
+.account-details {
+   width: 50%;
+   margin: auto;
+   margin-bottom: 2%;
+   border-radius: 1em;
+   box-shadow: 0 2.5px 2.5px -2px black;
+}
+
+.info { 
+   padding-top: 1%;
+}
+
+@media (max-width: 850px) {
+   .account-details {
+      width: 70%;
+   }
+}
+
+@media (max-width: 630px) {
+   .account-details {
+      width: 90%;
+   }
+}
+
+@media (max-width: 450px) {
+   .account-details {
+      font-size: 0.85em;
+   }
+}
+
+@media (max-width: 350px) {
+   .account-details {
+      width: 95%;
+   }
+}

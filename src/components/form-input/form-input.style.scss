@@ -51,12 +51,40 @@ $main-color: black;
   }
 }
 
-@media (max-height: 568px) {
+@media (max-height: 610px) {
   @mixin shrinkLabel {
     top: -10px;
     font-size: 8px;
   }
   .group {
     margin: 35px 0;
+  }
+}
+
+@media (max-width: 930px) {
+  .group {
+    .form-input {
+      width: 80%;
+    } 
+    .form-input-label {
+      left: 10%;
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .group {
+    .form-input {
+      width: 95%;
+    }
+    .form-input-label {
+      left: 3%;
+    }
+  }
+}
+
+@media (max-height: 575px) {
+  .group {
+    margin: 15px 0;
   }
 }
