@@ -6,6 +6,16 @@
    width: 74%;
    .greeting {
       text-align: right;
-      padding: 1%
+      padding: 1%;
+      margin: auto;
+      font-size: 1em;
+   }
+}
+
+@media (max-width: 930px) {
+   .main-content {
+      .greeting {
+         font-size: 0.7em;
+      }
    }
 }

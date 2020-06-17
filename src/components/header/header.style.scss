@@ -12,8 +12,13 @@
          display: grid;
          grid-template-columns: 20% 80%;
          font-size: x-large;
-         // color: black;
          text-decoration: none;
+         transition: all 0.2s;
+         border-radius:1em;
+         &:hover {
+            background-color: rgb(75, 233, 136);
+            cursor: pointer;
+         }
          .icon {
             width: auto;
             height: 1em;
@@ -39,6 +44,9 @@
          }
       }
    }
+   .header {
+      font-size: 1.2em;
+   }
 }
 
 @media screen and (max-width: 650px) {
@@ -48,6 +56,9 @@
             font-size: small;
          }
       }
+   }
+   .header {
+      font-size: 1em;
    }
 }
 

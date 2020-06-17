@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ThemeContext } from '../../App';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import jsPDF from 'jspdf';
@@ -13,6 +14,8 @@ import { selectIsPending } from '../../redux/user/user.selector';
 import './single.event.style.scss';
 
 const SingleEvent = ({ticket, cancellationStart, isPending}) => {
+   const theme = useContext(ThemeContext);
+   const { event_detail_background } = theme;
    const [prevState, setState] = useState({ doesWantToCancel: false, gotCanceled: false })
    const { location, department, timeSlot, date, locationId } = ticket;
    const { doesWantToCancel, gotCanceled} = prevState;
@@ -44,20 +47,20 @@ const SingleEvent = ({ticket, cancellationStart, isPending}) => {
          {
             isPending ? <div>Just a few moments <Spinner /></div> :
             gotCanceled ? <AppointmentCancelation /> :
-            <div>
-               <div className="date">Date: {date}</div>
-                  <div className="timeSlot">Time: {timeSlot}</div>
-                  <div className="location">Location: {location}</div> 
-                  <div className="department">Department: {department}</div>
-                  <Button onClick={downloadTicket}>Download Ticket</Button>
-                  <Button onClick={cancelStart}>Cancel Appointment</Button>
+            <div style={{backgroundColor:event_detail_background}} className="event">
+               <div className="event-detail-component">Date: {date}</div>
+                  <div className="event-detail-component">Time: {timeSlot}</div>
+                  <div className="event-detail-component">Location: {location}</div> 
+                  <div className="event-detail-component">Department: {department}</div>
+                  <Button className="button event-detail-component-button" onClick={downloadTicket}>Download Ticket</Button>
+                  <Button className="button event-detail-component-button" onClick={cancelStart}>Cancel Appointment</Button>
                   <div className="cancel-confirmation">
                      {
                         doesWantToCancel ? 
                         <div>
                            <h4>Are you sure you want to cancel?</h4>
-                           <Button onClick={remove}>Yes</Button>
-                           <Button onClick={doNotCancel}>No</Button>
+                           <Button className="button event-detail-component-button" onClick={remove}>Yes</Button>
+                           <Button className="button event-detail-component-button" onClick={doNotCancel}>No</Button>
                         </div>
                         : null
                         

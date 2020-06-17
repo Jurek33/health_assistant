@@ -9,3 +9,9 @@ a {
 .loading-message {
   padding: 10%
 }
+
+@media (max-height: 566px) {
+  .App {
+    height: -webkit-fill-available;
+  }
+}

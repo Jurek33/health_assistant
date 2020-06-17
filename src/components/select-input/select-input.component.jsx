@@ -23,7 +23,7 @@ export const SelectLocation = ({handleChoice, ...otherProperties}) => {
 
    return (
       <div className='options'>
-         <label className='label'>Select one of the locations</label>
+         <label className='label'>Select location</label>
          <select name='location' onChange={handleChoice} {...otherProperties}>
             <option value='none'>not selected</option>
             <option value={info1.name}>{info1.name}</option>

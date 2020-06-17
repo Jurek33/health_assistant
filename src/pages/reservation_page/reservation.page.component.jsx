@@ -21,8 +21,7 @@ const ReservationPage = ({currentUser}) => {
          <Header className="header"/>
             <div className="main-content">
                <h3 className="greeting">Welcome, {currentUser.displayName}</h3>
-               <h4>This is reservation page</h4>
-                  <h4>Please note that reservations are made for tomorrow date, which is {getTomorrowDay()}</h4>
+                  <h4 className="header">Please note that reservations are made for tomorrow date, which is {getTomorrowDay()}</h4>
                <ReservationForm />
             </div>
          <Footer className="footer"/>

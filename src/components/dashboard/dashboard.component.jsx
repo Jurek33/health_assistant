@@ -24,7 +24,7 @@ const Dashboard = () => {
 
    return (
       <div>
-         <h2 className="header">This is main page</h2>
+         <h2 className="header">My upcoming events</h2>
          { 
            isLoading ? 
            <div className="loading-boundary"> 

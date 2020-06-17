@@ -1,14 +1,17 @@
 export const themes = {
    light: {
      text_color: "#000000",
-     background: "#eeeeee"
+     background: "#eeeeee",
+     event_detail_background: "lightgrey"
    },
    dark: {
      text_color: "#ffffff",
-     background: "#222222"
+     background: "#222222",
+     event_detail_background: "grey"
    },
    standard: {
       text_color: "#000000",
-      background: "lightgreen"
+      background: "lightgreen",
+      event_detail_background: "lightgrey"
    }
  };
