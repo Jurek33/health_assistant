@@ -7,10 +7,10 @@ const Settings = ({switchColor, switchDark, switchStandard}) => {
    return (
       <div className='standard'>
          <div className='color-scheme'>
-            <div>Choose color theme</div>
-            <Button onClick={switchColor}>Light</Button>
+            <h2 className='header'>Set color theme</h2>
+            <Button onClick={switchColor}>Green</Button>
             <Button onClick={switchDark}>Dark</Button>
-            <Button onClick={switchStandard}>Standard</Button>
+            <Button onClick={switchStandard}>Light</Button>
          </div>
       </div>
    )

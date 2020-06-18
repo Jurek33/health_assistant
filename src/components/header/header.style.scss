@@ -36,6 +36,28 @@
    }
 }
 
+.navbar-container {
+   .navbar {
+      .navbar-item-dark {
+         display: grid;
+         grid-template-columns: 20% 80%;
+         font-size: x-large;
+         text-decoration: none;
+         transition: all 0.2s;
+         border-radius:1em;
+         &:hover {
+            background-color: rgb(104, 243, 185);
+            cursor: pointer;
+         }
+         .icon {
+            width: auto;
+            height: 1em;
+            margin-top: 3px;
+         }
+      }
+   }
+}
+
 @media screen and (max-width: 930px) {
    .navbar-container {
       .navbar {

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from '../../App';
 import './dashboard.style.scss';
 import EventDetail from '../event-detail/event.detail.component';
 import Spinner from '../spinner/spinner.component';
@@ -7,7 +8,6 @@ import { Link } from 'react-router-dom';
 import Button from '../custom-button/custom.button.component';
 
 const Dashboard = () => {
-   //for further updates: make sure not to display tickets with past date
    const [prevState, setState] = useState({
       ticketData: null,
       isLoading: false
@@ -21,6 +21,9 @@ const Dashboard = () => {
          .then(data=> setState({ticketData: data, isLoading: false}))
          .catch(()=>setState({isLoading: false}))
    }, [])
+
+   const theme = useContext(ThemeContext);
+   const { text_color } = theme;
 
    return (
       <div>
@@ -37,7 +40,7 @@ const Dashboard = () => {
            : 
            <div className="no-event-boundary">
              <h4 className="message">You have no events upcoming</h4>
-             <Button children={<Link className="link" to="/reserve"> Reserve a visit </Link>} />
+             <Link style={{color: text_color}} className="link" to="/reserve"><Button>Reserve a visit</Button></Link>
            </div> 
          }
       </div>

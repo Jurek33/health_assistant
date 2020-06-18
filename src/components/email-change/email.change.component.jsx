@@ -48,7 +48,7 @@ const EmailChange = ({email, password, newEmail, setCredentials, currentUser}) =
       <div>
          <div>
             {
-               isEmailChangeSuccess ? <div>Email was changed successfuly. Refresh the page to see updates.</div>
+               isEmailChangeSuccess ? <div className='success-message'>Email was changed successfuly. Refresh the page to see updates.</div>
                : 
                <div>
                   <form onSubmit={handleSubmit}>

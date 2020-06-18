@@ -52,15 +52,15 @@ const SingleEvent = ({ticket, cancellationStart, isPending}) => {
                   <div className="event-detail-component">Time: {timeSlot}</div>
                   <div className="event-detail-component">Location: {location}</div> 
                   <div className="event-detail-component">Department: {department}</div>
-                  <Button className="button event-detail-component-button" onClick={downloadTicket}>Download Ticket</Button>
-                  <Button className="button event-detail-component-button" onClick={cancelStart}>Cancel Appointment</Button>
+                  <Button onClick={downloadTicket}>Download Ticket</Button>
+                  <Button onClick={cancelStart}>Cancel Appointment</Button>
                   <div className="cancel-confirmation">
                      {
                         doesWantToCancel ? 
                         <div>
                            <h4>Are you sure you want to cancel?</h4>
-                           <Button className="button event-detail-component-button" onClick={remove}>Yes</Button>
-                           <Button className="button event-detail-component-button" onClick={doNotCancel}>No</Button>
+                           <Button onClick={remove}>Yes</Button>
+                           <Button onClick={doNotCancel}>No</Button>
                         </div>
                         : null
                         

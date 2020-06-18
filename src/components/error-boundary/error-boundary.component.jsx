@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../App';
 import './error-boundary.style.scss';
 import { Link } from 'react-router-dom';
 import Button from '../custom-button/custom.button.component';
 
 export const SignInError = () => {
    return(
-      <div className='signin-failure-message'>
+      <div className='failure-message'>
          Authentication failed. Incorrect email or password
       </div> 
    )
@@ -24,7 +25,7 @@ export const PasswordError = () => {
 
 export const RegisterError = () => {
    return(
-      <div className='register-failure-message'>
+      <div className='failure-message'>
          Registration failed. This email address is assigned to existing account
       </div> 
    )
@@ -32,7 +33,7 @@ export const RegisterError = () => {
 
 export const ReservationError = () => {
    return(
-      <div className='reservation-failure-message'>
+      <div className='failure-message'>
          Reservation failed, please refresh the page and try again
       </div> 
    )
@@ -40,7 +41,7 @@ export const ReservationError = () => {
 
 export const SelectLocationError = () => {
    return (
-      <div className='location-failure-message'>
+      <div className='failure-message'>
          Please select the location from the list above
       </div> 
    )
@@ -48,7 +49,7 @@ export const SelectLocationError = () => {
 
 export const SelectDeptError = () => {
    return (
-      <div className='dept-failure-message'>
+      <div className='failure-message'>
          Please select the department from the list above
       </div> 
    )
@@ -56,18 +57,20 @@ export const SelectDeptError = () => {
 
 export const SelectTimeError = () => {
    return (
-      <div className='time-failure-message'>
+      <div className='failure-message'>
          Please select time slot from the list above
       </div> 
    )
 }
 
 export const AppointmentCancelation = () => {
+   const theme = useContext(ThemeContext);
+   const { text_color } = theme;
    return (
       <div className='appointment-canceled-message'>
          This appointment was canceled
          <div>
-            <Button><Link className='link' to='/reserve'>Make another one</Link></Button> 
+            <Link style={{color: text_color}} className='link' to='/reserve'><Button>Make another one</Button> </Link>
          </div>
       </div>
    )
@@ -75,15 +78,15 @@ export const AppointmentCancelation = () => {
 
 export const ReauthenticationError = () => {
    return (
-      <div className='reauth-failure-message'>
-         Current primary email or password is incorrect. Fix the errors and try again
+      <div className='failure-message'>
+         Current primary email or password is incorrect
       </div> 
    )
 }
 
 export const EmailChangeFailure = () => {
    return (
-      <div className='reauth-failure-message'>
+      <div className='failure-message'>
          It looks like the email address you try to assign to this account is already in use. Please use different email
       </div> 
    )

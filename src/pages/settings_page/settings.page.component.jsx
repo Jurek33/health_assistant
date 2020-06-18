@@ -13,7 +13,6 @@ const SettingsPage = ({currentUser, switchColor, switchDark, switchStandard}) =>
          <Header className="header"/>
             <div className="main-content">
                <h3 className="greeting">Welcome, {currentUser.displayName}</h3>
-               <div>Settings page</div>
                <Settings switchColor={switchColor} switchDark={switchDark} switchStandard={switchStandard}/>
             </div>
          <Footer className="footer"/>

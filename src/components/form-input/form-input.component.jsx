@@ -7,7 +7,7 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
    const { text_color } = theme;
 	return (<div className="group">
 		<input 
-      className="form-input"
+		className="form-input"
       onChange={handleChange} 
 		{...otherProps} />
 		{
@@ -15,7 +15,7 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
 
 			(<label
 			style={{color: text_color}} 
-			className={`${otherProps.value.length ? 'shrink' : ''} form-input-label`}>
+			 className={`${otherProps.value.length ? 'shrink' : ''} form-input-label`}>
 				{label}	
 			</label>)
 

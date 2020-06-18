@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ThemeContext } from '../../App';
 import { connect } from 'react-redux';
 import './reservation.form.style.scss';
 
@@ -125,6 +126,9 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
       setUserData({...initialData, isReservationSucceed: false})
    }
 
+   const theme = useContext(ThemeContext);
+   const { text_color } = theme;
+
    return (
       <div>
          {
@@ -133,7 +137,7 @@ const ReservationForm = ({reservationStart, isPending, error}) => {
                <h4>Appointment was successfuly scheduled!</h4>
                <div>Would you like to make another one?</div>
                <Button onClick={anotherReservation}>Yes</Button>
-               <Button><Link to='/home'>No</Link></Button>
+               <Link style={{color: text_color}} className="link" to="/home"><Button>No</Button></Link>
             </div> 
             :
             <div className='reservation-form'>

@@ -18,7 +18,7 @@ import './header.style.scss';
 
 const Header = ({ signOutStart }) => {
    const theme = useContext(ThemeContext);
-   const { text_color } = theme;
+   const { text_color, button_color } = theme;
    return (
       <div className="navbar-container">
          <div className="navbar">
@@ -26,19 +26,24 @@ const Header = ({ signOutStart }) => {
                <Logo className="logo"/>
             </div>
             <Link style={{color: text_color}} to='/home'>
-               <span className="navbar-item"><HomeIcon className="icon"/> Home</span>
+               {button_color==='rgb(181, 255, 162)'?<span className="navbar-item"><HomeIcon className="icon"/> Home</span>:
+               <span className="navbar-item-dark"><HomeIcon className="icon"/> Home</span> }   
             </Link>
             <Link style={{color: text_color}} to='/reserve'>
-               <span className="navbar-item"><ReserveIcon className="icon"/> Reserve a visit</span>
+               {button_color==='rgb(181, 255, 162)'? <span className="navbar-item"><ReserveIcon className="icon"/> Reserve a visit</span>:
+               <span className="navbar-item-dark"><ReserveIcon className="icon"/> Reserve a visit</span>}
             </Link> 
             <Link style={{color: text_color}} to='/account'>
-               <span className="navbar-item"><AccountIcon className="icon"/> My account</span>
+               {button_color==='rgb(181, 255, 162)'?<span className="navbar-item"><AccountIcon className="icon"/> My account</span>:
+               <span className="navbar-item-dark"><AccountIcon className="icon"/> My account</span>}
             </Link>
             <Link style={{color: text_color}} to='/settings'>
-               <span className="navbar-item"><SettingsIcon className="icon"/> Settings</span>
+               {button_color==='rgb(181, 255, 162)' ?<span className="navbar-item"><SettingsIcon className="icon"/> Settings</span>:
+               <span className="navbar-item-dark"><SettingsIcon className="icon"/> Settings</span>}
             </Link>
             <Link style={{color: text_color}} onClick={signOutStart} to='/'>
-               <span className="navbar-item"><LogoutIcon className="icon"/> Log out</span>
+               {button_color==='rgb(181, 255, 162)' ?<span className="navbar-item"><LogoutIcon className="icon"/> Log out</span>:
+               <span className="navbar-item-dark"><LogoutIcon className="icon"/> Log out</span>}
             </Link> 
          </div>
       </div>

@@ -1,18 +1,39 @@
 .button {
    display: inline-block;
+   font-family: 'Jost', Arial, sans-serif;
    padding: 0.8em 1.5em;
    border-radius:2em;
    font-size: small;
    box-sizing: border-box;
    text-decoration: none;
    transition: all 0.2s;
-   background-color:rgb(181, 255, 162);
+   background-color:rgb(163, 250, 141);
    box-shadow: 0 2px 2px -2px black;
    border: none;
    margin-bottom: 20px;
    outline:none;
    &:hover {
       background-color: rgb(75, 233, 136);
+      cursor: pointer;
+   }
+}
+
+.dark {
+   display: inline-block;
+   font-family: 'Jost', Arial, sans-serif;
+   padding: 0.8em 1.5em;
+   border-radius:2em;
+   font-size: small;
+   box-sizing: border-box;
+   text-decoration: none;
+   transition: all 0.2s;
+   background-color:rgb(215, 248, 206);
+   box-shadow: 0 2px 2px -2px black;
+   border: none;
+   margin-bottom: 20px;
+   outline:none;
+   &:hover {
+      background-color: rgb(104, 243, 185);
       cursor: pointer;
    }
 }
